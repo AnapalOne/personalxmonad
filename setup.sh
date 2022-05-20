@@ -10,6 +10,7 @@ bash -c 'mkdir -p ~/.config/xmonad/scripts && cp files/help ~/.config/xmonad/'
 bash -c 'mkdir ~/.config/picom && cp config/picom.conf ~/.config/picom/'
 bash -c 'mkdir ~/.config/neofetch && cp config/neofetch_config.conf ~/.config/neofetch/config.conf'
 bash -c 'mkdir -p ~/Pictures/Ascii/ && cp files/archlinux.txt ~/Pictures/Ascii/'
+bash -c 'cp bashrc ~/.bashrc'
 
 # Add execution permissions to shell scripts
 bash -c 'cp config/shell/help.sh config/shell/startup_screen.sh ~/.config/xmonad/scripts/ && chmod +x ~/.config/xmonad/scripts/help.sh && chmod +x ~/.config/xmonad/scripts/startup_screen.sh'
