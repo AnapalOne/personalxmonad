@@ -106,7 +106,7 @@ Config {
         , Run Date           "<fc=#ABABAB>%F (%a) %r</fc>" "date" 10
 
         -- keyboard layout indicator
-        --, Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
+        -- , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
         --                     , ("us"         , "<fc=#4682B4>KeyB: </fc", "<fc=#8B0000>US</fc>")
         --                     ]
 
@@ -122,7 +122,7 @@ Config {
                                         ] 10
 
         -- weather monitor (add %RJTT% beteen uptime and date)
-        --, Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
+        -- , Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
         --                     ] 36000
         ]
    }
