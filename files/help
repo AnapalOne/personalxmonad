@@ -1,13 +1,14 @@
--------------------------------------------------
--- List of programs:
--------------------------------------------------
+                                                            -------------------------------------------------
+                                                            ==             List of programs:               ==
+                                                            -------------------------------------------------
 
-// terminal:
-   htop                 -- program manager
-   ncdu                 -- file manager
-   df                   -- system filesize
-   iwctl                -- internet manager
-   pacman, yay          -- package manager (yay for AUR)
+// terminal:                                                                      // games:
+   htop                 -- program manager                                           pychess           -- chess emulator
+   nnn, ranger          -- file manager                                              nethack           -- terminal-based dungeon game
+   ncdu                 -- disk analyzer                                             pcsx2             -- Playstation 2 emulator
+   df                   -- system filesize                                           chocolate-doom    -- doom DOS emulator (see ~/.local/share/games to play a game)
+   iwctl                -- internet manager                                          retroarch         -- front-end retro video game console emulator
+   pacman, yay          -- package manager (yay for AUR) 
    subl, nano, vim      -- text editor 
    xprop                -- shows information about a window
    flameshot            -- equivilent to prntscr in Windows (WinKey + Print)
@@ -15,19 +16,34 @@
    pamixer              -- volume control
    tlp, tlpui           -- battery manager
    youtube-dl           -- youtube video downloader
+   cmus                 -- music
+   spt                  -- spotify in terminal
+   alsamixer            -- sound system
+   bc                   -- calculator
+   bashmount		-- removable media manager
+   trackma		-- myanimelist in terminal
 
 // programs (WinKey + R to run):
-   nitrogen       -- wallpaper
-   firefox        -- browser
-   krita          -- drawing software
-   gimp           -- image editor/drawing software
-   mpv, vlc       -- video software
-   audacity       -- audio software
-   mirage         -- image viewer
-   spotify        -- music
-   discord        -- text and voice app
-   github-desktop -- github
-   libreoffice    -- office suite
+   nitrogen             -- wallpaper
+   firefox, chromium    -- browser
+   krita                -- drawing software
+   gimp                 -- image editor/drawing software
+   mpv, vlc             -- video software
+   audacity             -- audio software
+   mirage               -- image viewer
+   spotify              -- music
+   discord              -- text and voice app
+   github-desktop       -- github
+   libreoffice          -- office suite
+   nemo                 -- file manager
+   qbittorrent          -- torrenting
+   calibre              -- e-book reader
+   easytag              -- metadata handler
+   obs-studio           -- recorder
+   blueman              -- bluetooth
+   kdenlive	        -- video editor
+   deepin-calculator    -- calculator
+   code		        -- visual studio code
 
 
 Do pacman -Qe to list all installed packages.
