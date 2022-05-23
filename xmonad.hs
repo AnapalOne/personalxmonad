@@ -4,7 +4,7 @@
 
 import XMonad
 
-import XMonad.Prompt -- add prompt in firefox bookmarks
+import XMonad.Prompt
 import XMonad.Prompt.Input
 
 import Data.Monoid
@@ -208,6 +208,8 @@ qalcPromptConfig = def
        , borderColor = "white"
        , position = Bottom 
        }
+
+
 
 ---------------------------------------------------------
 -- Hooks

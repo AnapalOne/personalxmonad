@@ -1,32 +1,32 @@
 
-xmonad.hs:101:73: warning: [-Woverflowed-literals]
+xmonad.hs:104:73: warning: [-Woverflowed-literals]
     Literal -10 is out of the GHC.Word.Word32 range 0..4294967295
     |
-101 |     , ((modm,               xK_Up    ), withFocused (keysMoveWindow (0,-10)))           -- move floating window
+104 |     , ((modm,               xK_Up    ), withFocused (keysMoveWindow (0,-10)))           -- move floating window
     |                                                                         ^^
 
-xmonad.hs:103:71: warning: [-Woverflowed-literals]
+xmonad.hs:106:71: warning: [-Woverflowed-literals]
     Literal -10 is out of the GHC.Word.Word32 range 0..4294967295
     |
-103 |     , ((modm,               xK_Left  ), withFocused (keysMoveWindow (-10,0)))           --
+106 |     , ((modm,               xK_Left  ), withFocused (keysMoveWindow (-10,0)))           --
     |                                                                       ^^
 
-xmonad.hs:105:75: warning: [-Woverflowed-literals]
+xmonad.hs:108:75: warning: [-Woverflowed-literals]
     Literal -10 is out of the GHC.Word.Word32 range 0..4294967295
     |
-105 |     , ((modm .|. shiftMask, xK_Up    ), withFocused (keysResizeWindow (0,-10) (0,0)))   -- resize floating window
+108 |     , ((modm .|. shiftMask, xK_Up    ), withFocused (keysResizeWindow (0,-10) (0,0)))   -- resize floating window
     |                                                                           ^^
 
-xmonad.hs:107:73: warning: [-Woverflowed-literals]
+xmonad.hs:110:73: warning: [-Woverflowed-literals]
     Literal -10 is out of the GHC.Word.Word32 range 0..4294967295
     |
-107 |     , ((modm .|. shiftMask, xK_Left  ), withFocused (keysResizeWindow (-10,0) (0,0)))   --
+110 |     , ((modm .|. shiftMask, xK_Left  ), withFocused (keysResizeWindow (-10,0) (0,0)))   --
     |                                                                         ^^
 
-xmonad.hs:156:32: warning: [-Wdeprecations]
+xmonad.hs:160:32: warning: [-Wdeprecations]
     In the use of ‘spacingWithEdge’
     (imported from XMonad.Layout.Spacing):
     Deprecated: "Use spacingRaw instead."
     |
-156 |         (smartBorders Full ||| spacingWithEdge 7 (Full ||| tiled ||| Mirror tiled ||| threecol ||| Mirror threecol ||| Grid ||| spiral (6/7)))
+160 |         (smartBorders Full ||| spacingWithEdge 7 (Full ||| tiled ||| Mirror tiled ||| threecol ||| Mirror threecol ||| Grid ||| spiral (6/7)))
     |                                ^^^^^^^^^^^^^^^
