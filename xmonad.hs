@@ -114,7 +114,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- // system commands
     , ((modm,                 xK_b   ), sendMessage ToggleStruts)                                                                -- toggle xmobar to front of screen
     , ((modm,               xK_Escape), confirmPrompt logoutPrompt "logout?" $ io (exitWith ExitSuccess))                        -- logout from xmonad
-    , ((modm .|. shiftMask, xK_Escape), confirmPrompt logoutPrompt "reboot?" $ spawn "systemctl reboot")
+    , ((modm .|. shiftMask, xK_Escape), confirmPrompt logoutPrompt "reboot?" $ spawn "systemctl reboot")                         -- reboot computer
     , ((modm,                 xK_q   ), confirmPrompt logoutPrompt "recompile?" $ spawn "xmonad --recompile; xmonad --restart")  -- recompiles xmonad
     , ((modm .|. shiftMask  , xK_F1  ), spawn "systemctl hibernate")
     , ((0,     xF86XK_MonBrightnessUp), spawn "lux -a 5%")
