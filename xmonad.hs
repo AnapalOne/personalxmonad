@@ -244,16 +244,15 @@ myManageHook = composeAll
         -- ter 
         [ title     =? "alacritty"      --> doShift "<action=xdotool key super+1>\xf120</action>"
         -- doc
-        , className =? "Subl"           --> doShift "<action=xdotool key super+2>\xf718</action>" 
         , className =? "libreoffice-startcenter" --> doShift "<action=xdotool key super+2>\xf718</action>"
         , className =? "calibre"        --> doShift "<action=xdotool key super+2>\xf718</action>" 
         --www
         , className =? "firefox"        --> doShift "<action=xdotool key super+3>\xe743</action>" 
         , className =? "Chromium"       --> doShift "<action=xdotool key super+3>\xe743</action>"
         --dev
+        , className =? "Subl"           --> doShift "<action=xdotool key super+4>\xf121</action>" 
         , className =? "Audacity"       --> doShift "<action=xdotool key super+4>\xf121</action>" 
         , className =? "GitHub Desktop" --> doShift "<action=xdotool key super+4>\xf121</action>" 
-        , className =? "Code"           --> doShift "<action=xdotool key super+4>\xf121</action>" 
         --vid
         , className =? "vlc"            --> doShift "<action=xdotool key super+5>\xf008</action>" 
         , className =? "mpv"            --> doShift "<action=xdotool key super+5>\xf008</action>" 
