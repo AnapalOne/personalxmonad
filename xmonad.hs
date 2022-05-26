@@ -273,7 +273,7 @@ myManageHook = composeAll
         , title     =? "welcome"        --> doCenterFloat
         ]
 
-        -- Spotify's window name apparently cannot be found, so this is a workaround.
+        -- Spotify's WM_CLASS name is not set when first opening the window, so this is a workaround.
 spotifyWindowNameFix = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift "<action=xdotool key super+8>\xf886</action>") --mus
 
         --event handling
