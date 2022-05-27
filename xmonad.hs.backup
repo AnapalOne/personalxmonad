@@ -1,14 +1,21 @@
 ---------------------------------------------------------
--- XMonad Config by Anapal
+--            XMonad Config by Anapal                  --
+--     My personal config for my (or your) needs.      --
+--                                                     --
+--    > https://github.com/AnapalOne/xmonad-packed     --
 ---------------------------------------------------------
 
 import XMonad
-import XMonad.Prompt -- add prompt in firefox bookmarks
 
 import Data.Monoid
+import Data.Char (isSpace)
 import System.Exit
 import System.IO
 import Graphics.X11.ExtraTypes.XF86
+
+import XMonad.Prompt
+import XMonad.Prompt.Input
+import XMonad.Prompt.ConfirmPrompt
 
 import XMonad.Config.Desktop
 
@@ -47,9 +54,9 @@ import qualified Data.Map        as M
 
 myTerminal              = "alacritty"
 myModMask               = mod4Mask -- win key
-myBorderWidth           = 3
 myCursor                = xC_left_ptr
 
+myBorderWidth        = 3
 myNormalBorderColor  = "#849DAB"
 myFocusedBorderColor = "#24788F"
 
@@ -78,7 +85,7 @@ myWorkspaces = clickable . (map xmobarEscape)
 
 ---------------------------------------------------------
 -- Key Binds
--- > modm = Windows Key
+-- > modm = myModMask
 --
 -- Do xev | sed -ne '/^KeyPress/,/^$/p' for key maps.
 ---------------------------------------------------------
@@ -108,10 +115,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_Right ), withFocused (keysResizeWindow (10,0) (0,0)))    --
 
     -- // system commands
-    , ((modm,               xK_b     ), sendMessage ToggleStruts)                      -- toggle xmobar to front of screen
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))                     -- logout xmonad
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")  -- recompiles xmonad
-    , ((modm .|. shiftMask, xK_F1    ), spawn "systemctl hibernate")
+    , ((modm,                 xK_b   ), sendMessage ToggleStruts)                                                                -- toggle xmobar to front of screen
+    , ((modm,                 xK_q   ), confirmPrompt logoutPrompt "recompile?" $ spawn "xmonad --recompile; xmonad --restart")  -- recompiles xmonad
+    , ((modm,               xK_Escape), confirmPrompt logoutPrompt "logout?" $ io (exitWith ExitSuccess))                        -- logout from xmonad
+    , ((modm .|. shiftMask, xK_Escape), confirmPrompt logoutPrompt "reboot?" $ spawn "systemctl reboot")                         -- reboot computer
+    , ((0,               xF86XK_Sleep), spawn "systemctl hibernate")                                                             -- sleep mode
     , ((0,     xF86XK_MonBrightnessUp), spawn "lux -a 5%")
     , ((0,   xF86XK_MonBrightnessDown), spawn "lux -s 5%")
     , ((0,    xF86XK_AudioRaiseVolume), spawn "pamixer -i 5")
@@ -119,11 +127,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0,           xF86XK_AudioMute), spawn "pamixer -t")
 
     -- // programs
-    , ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)  -- open terminal
-    , ((modm .|. shiftMask, xK_s     ), spawn "flameshot gui")         -- equivelent to prntscr
-    , ((modm,               xK_r     ), spawn "dmenu_run")             -- run program
-    , ((modm .|. shiftMask, xK_r     ), spawn "gmrun")                 --
-    , ((modm .|. shiftMask, xK_v     ), spawn "alacritty -t alsamixer -e alsamixer")  -- sound system
+    , ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                               -- open terminal
+    , ((modm .|. shiftMask, xK_s     ), spawn "flameshot gui")                                      -- equivelent to prntscr
+    , ((modm,               xK_r     ), spawn "dmenu_run")                                          -- run program
+    , ((modm .|. shiftMask, xK_v     ), spawn "alacritty -t alsamixer -e alsamixer")                -- sound system
+    , ((modm .|. shiftMask, xK_c     ), qalcPrompt qalcPromptConfig "qalc (Press escape to exit)" ) -- quick calculator
     
     -- // scratchpad
     , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "ScrP_alacritty")
@@ -191,6 +199,35 @@ myScratchpads =
 
 
 ---------------------------------------------------------
+-- Prompts
+---------------------------------------------------------
+
+qalcPromptConfig :: XPConfig
+qalcPromptConfig = def
+       { font = "xft: Bitstream Vera Sans Mono:size=8:bold:antialias=true:hinting=true"
+       , bgColor = "black"
+       , fgColor = "white"
+       , bgHLight = "white"
+       , fgHLight = "black"
+       , borderColor = "#646464"
+       , position = Bottom 
+       }
+
+logoutPrompt :: XPConfig
+logoutPrompt = def 
+       { font = "xft: Bitstream Vera Sans Mono:size=8:bold:antialias=true:hinting=true"
+       , bgColor = "black"
+       , fgColor = "white"
+       , bgHLight = "white"
+       , fgHLight = "black"
+       , borderColor = "white"
+       , height = 50
+       , position = CenteredAt (0.5) (0.5)
+       }
+
+
+
+---------------------------------------------------------
 -- Hooks
 ---------------------------------------------------------
 
@@ -207,16 +244,15 @@ myManageHook = composeAll
         -- ter 
         [ title     =? "alacritty"      --> doShift "<action=xdotool key super+1>\xf120</action>"
         -- doc
-        , className =? "Subl"           --> doShift "<action=xdotool key super+2>\xf718</action>" 
         , className =? "libreoffice-startcenter" --> doShift "<action=xdotool key super+2>\xf718</action>"
         , className =? "calibre"        --> doShift "<action=xdotool key super+2>\xf718</action>" 
         --www
         , className =? "firefox"        --> doShift "<action=xdotool key super+3>\xe743</action>" 
         , className =? "Chromium"       --> doShift "<action=xdotool key super+3>\xe743</action>"
         --dev
+        , className =? "Subl"           --> doShift "<action=xdotool key super+4>\xf121</action>" 
         , className =? "Audacity"       --> doShift "<action=xdotool key super+4>\xf121</action>" 
         , className =? "GitHub Desktop" --> doShift "<action=xdotool key super+4>\xf121</action>" 
-        , className =? "Code"           --> doShift "<action=xdotool key super+4>\xf121</action>" 
         --vid
         , className =? "vlc"            --> doShift "<action=xdotool key super+5>\xf008</action>" 
         , className =? "mpv"            --> doShift "<action=xdotool key super+5>\xf008</action>" 
@@ -237,7 +273,7 @@ myManageHook = composeAll
         , title     =? "welcome"        --> doCenterFloat
         ]
 
-        -- Spotify's window name apparently cannot be found, so this is a workaround.
+        -- Spotify's WM_CLASS name is not set when first opening the window, so this is a workaround.
 spotifyWindowNameFix = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift "<action=xdotool key super+8>\xf886</action>") --mus
 
         --event handling
@@ -308,3 +344,11 @@ xmobarEscape = concatMap doubleLts
    where
            doubleLts '<' = "<<"
            doubleLts x   = [x]
+
+qalcPrompt :: XPConfig -> String -> X () 
+qalcPrompt c ans =
+    inputPrompt c (trim ans) ?+ \input -> 
+        liftIO(runProcessWithInput "qalc" [input] "") >>= qalcPrompt c 
+    where
+        trim  = f . f
+            where f = reverse . dropWhile isSpace
