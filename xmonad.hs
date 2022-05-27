@@ -131,7 +131,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_s     ), spawn "flameshot gui")                                      -- equivelent to prntscr
     , ((modm,               xK_r     ), spawn "dmenu_run")                                          -- run program
     , ((modm .|. shiftMask, xK_v     ), spawn "alacritty -t alsamixer -e alsamixer")                -- sound system
-    , ((modm,               xK_p     ), qalcPrompt qalcPromptConfig "qalc (Press escape to exit)" ) -- quick calculator
+    , ((modm .|. shiftMask, xK_c     ), qalcPrompt qalcPromptConfig "qalc (Press escape to exit)" ) -- quick calculator
     
     -- // scratchpad
     , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "ScrP_alacritty")
