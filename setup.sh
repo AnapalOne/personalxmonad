@@ -12,7 +12,7 @@ bash -c 'mkdir ~/.config/neofetch && cp config/neofetch_config.conf ~/.config/ne
 bash -c 'mkdir -p ~/Pictures/Ascii/ && cp files/archlinux.txt ~/Pictures/Ascii/'
 bash -c 'cp bashrc ~/.bashrc'
 bash -c 'mkdir ~/.config/dunst && cp /etc/dunst/dunstrc ~/.config/dunst/dunstrc'
-bash -c 'cp config/shell/help.sh config/shell/startup_screen.sh ~/.config/xmonad/scripts/' 
+bash -c 'mkdir -p ~/.config/xmonad/scripts && cp config/shell/help.sh config/shell/startup_screen.sh ~/.config/xmonad/scripts/' 
 bash -c 'mkdir ~/Scripts && cp config/shell/battery_notifs.sh ~/Scripts'
 
 # Add execution permissions to shell scripts
