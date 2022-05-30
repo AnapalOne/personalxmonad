@@ -12,16 +12,19 @@
    subl, nano, vim      -- text editor 
    xprop                -- shows information about a window
    flameshot            -- equivilent to prntscr in Windows (WinKey + Print)
-   ani-cli              -- anime
-   pamixer              -- volume control
-   tlp, tlpui           -- battery manager
-   youtube-dl           -- youtube video downloader
-   cmus                 -- music
+   ani-cli              -- anime                                                  // code compilers:
+   tlp, tlpui           -- battery manager                                           gcc               -- C compiler
+   youtube-dl           -- youtube video downloader                                  g++               -- C++ compiler
+   cmus                 -- music                                                     python            -- Python compiler
    spt                  -- spotify in terminal
    alsamixer            -- sound system
-   bc                   -- calculator
+   bc, qalc             -- calculator
    bashmount		-- removable media manager
    trackma		-- myanimelist in terminal
+   gpg 			-- encryption
+   cava			-- audio visualizer
+   asciiquarium         -- aquarium in ascii
+   espeak               -- text-to-speech
 
 // programs (WinKey + R to run):
    nitrogen             -- wallpaper
@@ -43,7 +46,6 @@
    blueman              -- bluetooth
    kdenlive	        -- video editor
    deepin-calculator    -- calculator
-   code		        -- visual studio code
 
 
 Do pacman -Qe to list all installed packages.
