@@ -30,6 +30,7 @@ import XMonad.Layout.Spiral
 --import XMonad.Layout.Magnifier
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Spacing
+import XMonad.Layout.Circle
 
 import XMonad.ManageHook
 import XMonad.Hooks.ManageDocks
@@ -172,7 +173,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 ---------------------------------------------------------
 
 myLayout = avoidStruts
-        (smartBorders Full ||| spacingWithEdge 7 (Full ||| tiled ||| Mirror tiled ||| threecol ||| Mirror threecol ||| Grid ||| spiral (6/7)))
+        (smartBorders Full ||| spacingWithEdge 7 (Full ||| tiled ||| Mirror tiled ||| threecol ||| Mirror threecol ||| Grid ||| spiral (6/7)) ||| Circle )
   where
      tiled = Tall nmaster delta ratio
      nmaster = 1
@@ -265,6 +266,7 @@ myManageHook = composeAll
         , className =? "Audacity"       --> doShift "<action=xdotool key super+4>\xf121</action>" 
         , className =? "GitHub Desktop" --> doShift "<action=xdotool key super+4>\xf121</action>" 
         --vid
+        , className =? "obs"            --> doShift "<action=xdotool key super+5>\xf008</action>"
         , className =? "vlc"            --> doShift "<action=xdotool key super+5>\xf008</action>" 
         , className =? "mpv"            --> doShift "<action=xdotool key super+5>\xf008</action>" 
         , className =? "kdenlive"       --> doShift "<action=xdotool key super+5>\xf008</action>" 
@@ -295,6 +297,7 @@ myStartupHook = do
         spawnOnce "nitrogen --restore &"
         spawnOnce "picom &"
         spawnOnce "~/.config/xmonad/scripts/startup_screen.sh"
+        spawnOnce "~/Scripts/battery_notifs.sh &"
         spawnOnce "libinput-gestures &"
         setDefaultCursor myCursor
 
