@@ -256,7 +256,7 @@ myManageHook = composeAll
         -- ter 
         [ title     =? "alacritty"      --> doShift "<action=xdotool key super+1>\xf120</action>"
         -- doc
-        , className =? "libreoffice-startcenter" --> doShift "<action=xdotool key super+2>\xf718</action>"
+        , resource  =? "libreoffice"    --> doShift "<action=xdotool key super+2>\xf718</action>"
         , className =? "calibre"        --> doShift "<action=xdotool key super+2>\xf718</action>" 
         --www
         , className =? "firefox"        --> doShift "<action=xdotool key super+3>\xe743</action>" 
