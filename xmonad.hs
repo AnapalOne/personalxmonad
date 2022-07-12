@@ -27,7 +27,6 @@ import XMonad.Actions.FloatSnap
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Grid
 import XMonad.Layout.Spiral
---import XMonad.Layout.Magnifier
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Spacing
 import XMonad.Layout.Circle
@@ -37,7 +36,7 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.DynamicLog
+-- import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.DynamicProperty (dynamicPropertyChange)
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
@@ -111,13 +110,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- // floating windows
     , ((modm .|. shiftMask, xK_Tab    ), withFocused toggleFloat)                      -- toggle between tiled and floating window
-    , ((modm,               xK_Up     ), withFocused (keysMoveWindow (0,(-10))))         -- move floating window 
+    , ((modm,               xK_Up     ), withFocused (keysMoveWindow (0,-10)))         -- move floating window 
     , ((modm,               xK_Down   ), withFocused (keysMoveWindow (0,10)))          -- 
-    , ((modm,               xK_Left   ), withFocused (keysMoveWindow ((-10),0)))         --
+    , ((modm,               xK_Left   ), withFocused (keysMoveWindow (-10,0)))         --
     , ((modm,               xK_Right  ), withFocused (keysMoveWindow (10,0)))          --
-    , ((modm .|. shiftMask, xK_Up     ), withFocused (keysResizeWindow (0,(-10)) (0,0))) -- resize floating window
+    , ((modm .|. shiftMask, xK_Up     ), withFocused (keysResizeWindow (0,-10) (0,0))) -- resize floating window
     , ((modm .|. shiftMask, xK_Down   ), withFocused (keysResizeWindow (0,10) (0,0)))  --
-    , ((modm .|. shiftMask, xK_Left   ), withFocused (keysResizeWindow ((-10),0) (0,0))) --
+    , ((modm .|. shiftMask, xK_Left   ), withFocused (keysResizeWindow (-10,0) (0,0))) --
     , ((modm .|. shiftMask, xK_Right  ), withFocused (keysResizeWindow (10,0) (0,0)))  --
     , ((modm .|. controlMask, xK_Left ), withFocused $ snapMove L Nothing)             -- snap window relative to window or desktop
     , ((modm .|. controlMask, xK_Right), withFocused $ snapMove R Nothing)             --
@@ -292,7 +291,7 @@ myManageHook = composeAll
 spotifyWindowNameFix = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift "<action=xdotool key super+8>\xf886</action>") --mus
 
         --event handling
-myEventHook = ewmhFullscreen <+> spotifyWindowNameFix
+myEventHook = spotifyWindowNameFix
 
         --Executes whenever xmonad starts
 myStartupHook = do
@@ -303,6 +302,20 @@ myStartupHook = do
         spawnOnce "libinput-gestures &"
         setDefaultCursor myCursor
 
+myLogHook xmproc = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ def
+       	                           { ppOutput = hPutStrLn xmproc 
+       	                           , ppCurrent = xmobarColor "#4381fb" "" . wrap "[" "]"
+                                   , ppVisible = xmobarColor "#4381fb" ""
+                                   , ppHidden = xmobarColor "#d1426e" "" . wrap "*" ""
+                                   , ppHiddenNoWindows = xmobarColor "#061d8e" ""
+                                   , ppTitle = xmobarColor "#ffffff" "" . shorten 60
+                                   , ppSep = "<fc=#666666> | </fc>"
+                                   , ppWsSep = "<fc=#666666> . </fc>"
+                                   , ppExtras = [windowCount]
+                                   , ppOrder = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                                   }
+
+
 
 
 ---------------------------------------------------------
@@ -311,7 +324,7 @@ myStartupHook = do
 
 main = do
    xmproc <- spawnPipe "xmobar -x 0 ~/.xmobarrc/xmobar.hs"
-   xmonad $ docks $ ewmh desktopConfig
+   xmonad $ docks $ ewmhFullscreen . ewmh $ desktopConfig
         { terminal           = myTerminal
         , modMask            = myModMask
         , workspaces         = myWorkspaces
@@ -322,20 +335,9 @@ main = do
         , keys               = myKeys
 
         , layoutHook         = myLayout
-        , manageHook         = myManageHook <+> filterOutWsPP [myScratchpads]
+        , manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads
         , handleEventHook    = myEventHook
-        , logHook            = dynamicLogWithPP . namedScratchpadFilterOutWorkspacePP $ def
-                                   { ppOutput = hPutStrLn xmproc
-                                   , ppCurrent = xmobarColor "#4381fb" "" . wrap "[" "]"
-                                   , ppVisible = xmobarColor "#4381fb" ""
-                                   , ppHidden = xmobarColor "#d1426e" "" . wrap "*" ""
-                                   , ppHiddenNoWindows = xmobarColor "#061d8e" ""
-                                   , ppTitle = xmobarColor "#ffffff" "" . shorten 60
-                                   , ppSep = "<fc=#666666> | </fc>"
-                                   , ppWsSep = "<fc=#666666> . </fc>"
-                                   , ppExtras = [windowCount]
-                                   , ppOrder = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                                }
+        , logHook            = myLogHook xmproc 
 
         , startupHook        = myStartupHook
      }
