@@ -1,111 +1,20 @@
 $ ghc --make xmonad.hs -i -ilib -fforce-recomp -main-is main -dynamic -v0 -outputdir /home/anapal/.xmonad/build-x86_64-linux -o /home/anapal/.xmonad/xmonad-x86_64-linux
 
-xmonad.hs:295:34: error:
-    • Couldn't match type ‘Event’ with ‘XConfig a’
-      Expected: XConfig a -> XConfig a
-        Actual: Event -> X All
-    • In the second argument of ‘(<+>)’, namely ‘spotifyWindowNameFix’
-      In the expression: ewmhFullscreen <+> spotifyWindowNameFix
-      In an equation for ‘myEventHook’:
-          myEventHook = ewmhFullscreen <+> spotifyWindowNameFix
-    • Relevant bindings include
-        myEventHook :: XConfig a -> XConfig a (bound at xmonad.hs:295:1)
+xmonad.hs:113:74: warning: [-Woverflowed-literals]
+    Literal -10 is out of the GHC.Word.Word32 range 0..4294967295
     |
-295 | myEventHook = ewmhFullscreen <+> spotifyWindowNameFix
-    |                                  ^^^^^^^^^^^^^^^^^^^^
+113 |     , ((modm,               xK_Up     ), withFocused (keysMoveWindow (0,-10)))         -- move floating window 
+    |                                                                          ^^
 
-xmonad.hs:325:49: error:
-    • Couldn't match expected type: Query (Endo WindowSet)
-                  with actual type: PP -> PP
-    • Probable cause: ‘filterOutWsPP’ is applied to too few arguments
-      In the second argument of ‘(<+>)’, namely
-        ‘filterOutWsPP [myScratchpads]’
-      In the ‘manageHook’ field of a record
-      In the first argument of ‘ewmh’, namely
-        ‘desktopConfig
-           {terminal = myTerminal, modMask = myModMask,
-            workspaces = myWorkspaces, borderWidth = myBorderWidth,
-            normalBorderColor = myNormalBorderColor,
-            focusedBorderColor = myFocusedBorderColor, keys = myKeys,
-            layoutHook = myLayout,
-            manageHook = myManageHook <+> filterOutWsPP [myScratchpads],
-            handleEventHook = myEventHook,
-            logHook = dynamicLogWithPP . namedScratchpadFilterOutWorkspacePP
-                        $ def
-                            {ppOutput = hPutStrLn xmproc,
-                             ppCurrent = xmobarColor "#4381fb" "" . wrap "[" "]",
-                             ppVisible = xmobarColor "#4381fb" "",
-                             ppHidden = xmobarColor "#d1426e" "" . wrap "*" "",
-                             ppHiddenNoWindows = xmobarColor "#061d8e" "",
-                             ppTitle = xmobarColor "#ffffff" "" . shorten 60,
-                             ppSep = "<fc=#666666> | </fc>", ppWsSep = "<fc=#666666> . </fc>",
-                             ppExtras = [windowCount],
-                             ppOrder = \ (ws : l : t : ex) -> [...] ++ ex ++ [...]},
-            startupHook = myStartupHook}’
+xmonad.hs:115:72: warning: [-Woverflowed-literals]
+    Literal -10 is out of the GHC.Word.Word32 range 0..4294967295
     |
-325 |         , manageHook         = myManageHook <+> filterOutWsPP [myScratchpads]
-    |                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+115 |     , ((modm,               xK_Left   ), withFocused (keysMoveWindow (-10,0)))         --
+    |                                                                        ^^
 
-xmonad.hs:325:64: error:
-    • Couldn't match type ‘NamedScratchpad’ with ‘Char’
-      Expected: WorkspaceId
-        Actual: [NamedScratchpad]
-    • In the expression: myScratchpads
-      In the first argument of ‘filterOutWsPP’, namely ‘[myScratchpads]’
-      In the second argument of ‘(<+>)’, namely
-        ‘filterOutWsPP [myScratchpads]’
+xmonad.hs:306:8: warning: [-Wtabs]
+    Tab character found here, and in one further location.
+    Please use spaces instead.
     |
-325 |         , manageHook         = myManageHook <+> filterOutWsPP [myScratchpads]
-    |                                                                ^^^^^^^^^^^^^
-
-xmonad.hs:326:32: error:
-    • Couldn't match type ‘XConfig a1’ with ‘Event’
-      Expected: Event -> X All
-        Actual: XConfig a1 -> XConfig a1
-    • In the ‘handleEventHook’ field of a record
-      In the first argument of ‘ewmh’, namely
-        ‘desktopConfig
-           {terminal = myTerminal, modMask = myModMask,
-            workspaces = myWorkspaces, borderWidth = myBorderWidth,
-            normalBorderColor = myNormalBorderColor,
-            focusedBorderColor = myFocusedBorderColor, keys = myKeys,
-            layoutHook = myLayout,
-            manageHook = myManageHook <+> filterOutWsPP [myScratchpads],
-            handleEventHook = myEventHook,
-            logHook = dynamicLogWithPP . namedScratchpadFilterOutWorkspacePP
-                        $ def
-                            {ppOutput = hPutStrLn xmproc,
-                             ppCurrent = xmobarColor "#4381fb" "" . wrap "[" "]",
-                             ppVisible = xmobarColor "#4381fb" "",
-                             ppHidden = xmobarColor "#d1426e" "" . wrap "*" "",
-                             ppHiddenNoWindows = xmobarColor "#061d8e" "",
-                             ppTitle = xmobarColor "#ffffff" "" . shorten 60,
-                             ppSep = "<fc=#666666> | </fc>", ppWsSep = "<fc=#666666> . </fc>",
-                             ppExtras = [windowCount],
-                             ppOrder = \ (ws : l : t : ex) -> [...] ++ ex ++ [...]},
-            startupHook = myStartupHook}’
-      In the second argument of ‘($)’, namely
-        ‘ewmh
-           desktopConfig
-             {terminal = myTerminal, modMask = myModMask,
-              workspaces = myWorkspaces, borderWidth = myBorderWidth,
-              normalBorderColor = myNormalBorderColor,
-              focusedBorderColor = myFocusedBorderColor, keys = myKeys,
-              layoutHook = myLayout,
-              manageHook = myManageHook <+> filterOutWsPP [myScratchpads],
-              handleEventHook = myEventHook,
-              logHook = dynamicLogWithPP . namedScratchpadFilterOutWorkspacePP
-                          $ def
-                              {ppOutput = hPutStrLn xmproc,
-                               ppCurrent = xmobarColor "#4381fb" "" . wrap "[" "]",
-                               ppVisible = xmobarColor "#4381fb" "",
-                               ppHidden = xmobarColor "#d1426e" "" . wrap "*" "",
-                               ppHiddenNoWindows = xmobarColor "#061d8e" "",
-                               ppTitle = xmobarColor "#ffffff" "" . shorten 60,
-                               ppSep = "<fc=#666666> | </fc>", ppWsSep = "<fc=#666666> . </fc>",
-                               ppExtras = [windowCount],
-                               ppOrder = \ (ws : l : t : ex) -> [...] ++ ex ++ [...]},
-              startupHook = myStartupHook}’
-    |
-326 |         , handleEventHook    = myEventHook
-    |                                ^^^^^^^^^^^
+306 |                                    { ppOutput = hPutStrLn xmproc 
+    |        ^
