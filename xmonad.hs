@@ -36,7 +36,6 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
--- import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.DynamicProperty (dynamicPropertyChange)
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
@@ -314,7 +313,6 @@ myLogHook xmproc = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ d
                                    , ppExtras = [windowCount]
                                    , ppOrder = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                                    }
-
 
 
 
