@@ -65,7 +65,7 @@ myFocusedBorderColor = "#24788F"
 myGridSpawn = [ "subl","firefox","github-desktop",
                 "libreoffice","nemo","kdenlive",
                 "discord","spotify","gimp","krita","obs",
-                "kmix","deepin-calculator"]
+                "audacity","steam"]
 
 
 
@@ -75,8 +75,8 @@ myGridSpawn = [ "subl","firefox","github-desktop",
 
 myWorkspaces :: [String]
 myWorkspaces = clickable . (map xmobarEscape) 
-            -- $ ["ter","doc","www","dev","vid","img","chat","mus","art"] -- text
-            $ ["\xf120", "\xf718", "\xe743", "\xf121", "\xf008", "\xf03e", "\xf1d7", "\xf886", "\xf1fc"] -- icons
+            -- $ ["ter","doc","www","dev","vid","game","chat","mus","art"] -- text
+            $ ["\xf120", "\xf121", "\xe743", "\xf718", "\xf008", "\xf11b", "\xf1d7", "\xf886", "\xf1fc"] -- icons
     where
           clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                         (i,ws) <- zip [1..9] l,
@@ -126,16 +126,19 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. altMask, xK_Down     ), withFocused $ snapGrow D Nothing)             --
 
     -- // system commands
-    , ((modm,                 xK_b   ), sendMessage ToggleStruts)                                                                -- toggle xmobar to front of screen
-    , ((modm,                 xK_q   ), confirmPrompt logoutPrompt "recompile?" $ spawn "xmonad --recompile; xmonad --restart")  -- recompiles xmonad
-    , ((modm,               xK_Escape), confirmPrompt logoutPrompt "logout?" $ io (exitWith ExitSuccess))                        -- logout from xmonad
-    , ((modm .|. shiftMask, xK_Escape), confirmPrompt logoutPrompt "reboot?" $ spawn "systemctl reboot")                         -- reboot computer
-    , ((0,               xF86XK_Sleep), spawn "systemctl hibernate")                                                             -- sleep mode
-    , ((0,     xF86XK_MonBrightnessUp), spawn "lux -a 5%")
-    , ((0,   xF86XK_MonBrightnessDown), spawn "lux -s 5%")
-    , ((0,    xF86XK_AudioRaiseVolume), spawn "pamixer -i 5")
-    , ((0,    xF86XK_AudioLowerVolume), spawn "pamixer -d 5")
-    , ((0,           xF86XK_AudioMute), spawn "pamixer -t")
+    , ((modm,                 xK_b     ), sendMessage ToggleStruts)                                                                -- toggle xmobar to front of screen
+    , ((modm,                 xK_q     ), confirmPrompt logoutPrompt "recompile?" $ spawn "xmonad --recompile; xmonad --restart")  -- recompiles xmonad
+    , ((modm,                 xK_Escape), confirmPrompt logoutPrompt "logout?" $ io (exitWith ExitSuccess))                        -- logout from xmonad
+    , ((modm .|. shiftMask,   xK_Escape), confirmPrompt logoutPrompt "sleep?" $ spawn "systemctl suspend")                         -- sleep mode
+    , ((modm .|. altMask  ,   xK_Escape), confirmPrompt logoutPrompt "reboot?" $ spawn "systemctl reboot")                         -- reboot computer
+    , ((modm .|. controlMask, xK_Escape), confirmPrompt logoutPrompt "shutdown?" $ spawn "systemctl poweroff")                     -- shutdown computer
+    , ((0,              xF86XK_PowerOff), confirmPrompt logoutPrompt "shutdown?" $ spawn "systemctl poweroff")                     --
+    , ((0,                 xF86XK_Sleep), spawn "systemctl suspend")                                                               -- sleep mode
+    , ((0,       xF86XK_MonBrightnessUp), spawn "lux -a 5%")
+    , ((0,     xF86XK_MonBrightnessDown), spawn "lux -s 5%")
+    , ((0,      xF86XK_AudioRaiseVolume), spawn "pamixer -i 5")
+    , ((0,      xF86XK_AudioLowerVolume), spawn "pamixer -d 5")
+    , ((0,             xF86XK_AudioMute), spawn "pamixer -t")
 
     -- // programs
     , ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                               -- open terminal
@@ -172,7 +175,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 ---------------------------------------------------------
 
 myLayout = avoidStruts
-        (smartBorders Full ||| spacingWithEdge 7 (Full ||| tiled ||| Mirror tiled ||| threecol ||| Mirror threecol ||| Grid ||| spiral (6/7)) ||| Circle )
+        (spacing 3 $ smartBorders ( Full ||| tiled ||| Mirror tiled ||| threecol ||| Mirror threecol ||| Grid ||| spiral (6/7)) ||| Circle )
   where
      tiled = Tall nmaster delta ratio
      nmaster = 1
@@ -250,38 +253,38 @@ myManageHook = composeAll
 
         -- Opens the program only on a specific workspace.
         -- NOTE: It will not work when the workspaces in myWorkspace does not match the doShift command here. 
-        --       To fix this, replace the workspace inside doShift with your renamed workspace.
+        --       Instead, replace the workspace inside doShift with your renamed workspace.
 
         -- ter 
         [ title     =? "alacritty"      --> doShift "<action=xdotool key super+1>\xf120</action>"
-        -- doc
-        , resource  =? "libreoffice"    --> doShift "<action=xdotool key super+2>\xf718</action>"
-        , className =? "calibre"        --> doShift "<action=xdotool key super+2>\xf718</action>" 
+        --dev
+        , className =? "Subl"           --> doShift "<action=xdotool key super+2>\xf121</action>" 
+        , className =? "Audacity"       --> doShift "<action=xdotool key super+2>\xf121</action>" 
+        , className =? "GitHub Desktop" --> doShift "<action=xdotool key super+2>\xf121</action>"  
         --www
         , className =? "firefox"        --> doShift "<action=xdotool key super+3>\xe743</action>" 
         , className =? "Chromium"       --> doShift "<action=xdotool key super+3>\xe743</action>"
-        --dev
-        , className =? "Subl"           --> doShift "<action=xdotool key super+4>\xf121</action>" 
-        , className =? "Audacity"       --> doShift "<action=xdotool key super+4>\xf121</action>" 
-        , className =? "GitHub Desktop" --> doShift "<action=xdotool key super+4>\xf121</action>" 
+        -- doc
+        , resource  =? "libreoffice"    --> doShift "<action=xdotool key super+4>\xf718</action>"
+        , className =? "calibre"        --> doShift "<action=xdotool key super+4>\xf718</action>"
         --vid
         , className =? "obs"            --> doShift "<action=xdotool key super+5>\xf008</action>"
         , className =? "vlc"            --> doShift "<action=xdotool key super+5>\xf008</action>" 
-        , className =? "mpv"            --> doShift "<action=xdotool key super+5>\xf008</action>" 
         , className =? "kdenlive"       --> doShift "<action=xdotool key super+5>\xf008</action>" 
-        --img
-        , className =? "Gimp"           --> doShift "<action=xdotool key super+6>\xf03e</action>" 
-        , className =? "Mirage"         --> doShift "<action=xdotool key super+6>\xf03e</action>" 
+        --game
+        , className =? "Steam"          --> doShift "<action=xdotool key super+6>\xf11b</action>" 
         --chat
         , className =? "discord"        --> doShift "<action=xdotool key super+7>\xf1d7</action>" 
         --art
         , className =? "krita"          --> doShift "<action=xdotool key super+9>\xf1fc</action>" 
+        , className =? "Gimp"           --> doShift "<action=xdotool key super+9>\xf1fc</action>" 
 
         -- Places the window in floating mode.
-        , className =? "Nemo"           --> doCenterFloat
         , className =? "kmix"           --> doFloat
-        , title     =? "alsamixer"      --> doCenterFloat
         , className =? "Sxiv"           --> doFloat
+        , className =? "Nemo"           --> doCenterFloat
+        , className =? "XTerm"          --> doCenterFloat
+        , title     =? "alsamixer"      --> doCenterFloat
         , title     =? "welcome"        --> doCenterFloat
         ]
 
@@ -298,6 +301,7 @@ myStartupHook = do
         spawnOnce "~/.config/xmonad/scripts/startup_window.sh"
         spawnOnce "~/Scripts/battery_notifs.sh &"
         spawnOnce "libinput-gestures &"
+        spawnOnce "unclutter &"
         setDefaultCursor myCursor
 
 myLogHook xmproc = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ def

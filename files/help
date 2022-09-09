@@ -4,31 +4,31 @@
 
 // terminal:                                                                      // games:
    htop                 -- program manager                                           pychess           -- chess emulator
-   nnn, ranger          -- file manager                                              nethack           -- terminal-based dungeon game
-   ncdu                 -- disk analyzer                                             pcsx2             -- Playstation 2 emulator
-   df                   -- system filesize                                           chocolate-doom    -- doom DOS emulator (see ~/.local/share/games to play a game)
+   nnn, ranger          -- file manager                                              pcsx2             -- Playstation 2 emulator                    
+   ncdu                 -- disk analyzer                                             chocolate-doom    -- doom DOS emulator (see ~/.local/share/games to play a game)
+   df                   -- system filesize                                           nsnake            -- snake in terminal 
    iwctl                -- internet manager                                          retroarch         -- front-end retro video game console emulator
-   pacman, yay          -- package manager (yay for AUR) 
-   subl, nano, vim      -- text editor 
+   pacman, yay          -- package manager (yay for AUR)			     osu-stable        -- free-to-play rhythm game where you click circles to the beat
+   subl, nano, vim      -- text editor			                             yumenikki-en      -- jrpg exploration game in rpgmaker by kikiyama
    xprop                -- shows information about a window
    flameshot            -- equivilent to prntscr in Windows (WinKey + Print)
    ani-cli              -- anime                                                  // code compilers:
    tlp, tlpui           -- battery manager                                           gcc               -- C compiler
    youtube-dl           -- youtube video downloader                                  g++               -- C++ compiler
    cmus                 -- music                                                     python            -- Python compiler
-   spt                  -- spotify in terminal
+   spt                  -- spotify in terminal					     dotnet            -- C# project builder (requires project, do 'dotnet new')
    alsamixer            -- sound system
    bc, qalc             -- calculator
    bashmount		-- removable media manager
    trackma		-- myanimelist in terminal
-   gpg 			-- encryption
-   cava			-- audio visualizer
-   asciiquarium         -- aquarium in ascii
-   espeak               -- text-to-speech
+   gpg 			-- encryption                                             // fun commands:
+   cava			-- audio visualizer                                          asciiquarium         -- aquarium in ascii                                       
+   espeak               -- text-to-speech                                            cmatrix              -- cool code animation from matrix movie
+   aft-mtp-mount        -- mount android device
 
 // programs (WinKey + R to run):
    nitrogen             -- wallpaper
-   firefox, chromium    -- browser
+   firefox              -- browser
    krita                -- drawing software
    gimp                 -- image editor/drawing software
    mpv, vlc             -- video software
@@ -46,6 +46,8 @@
    blueman              -- bluetooth
    kdenlive	        -- video editor
    deepin-calculator    -- calculator
+   winetricks           -- wine manager
+   renpy                -- visual novel engine
 
 
 Do pacman -Qe to list all installed packages.

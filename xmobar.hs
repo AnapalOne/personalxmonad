@@ -6,7 +6,6 @@ Config {
    , fgColor =      "white"
    , borderColor =  "#646464"
 
-   -- Position
    -- options: Top, TopP, TopW, TopSize, Bottom, BottomP, BottomW, BottomSize or Static
    --          examples:
    --              Static { xpos = 14 , ypos = 10, width = 1330, height = 20 }
@@ -14,18 +13,17 @@ Config {
    --              BottomP 120 0
    , position = Top
 
-   -- Border
    -- options: TopB, TopBM, BottomB, BottomBM, FullB, FullBM or NoBorder 
    --     TopB, BottomB, FullB take no arguments, and request drawing a border at the top, bottom or around xmobar's window, respectively.
    --     TopBM, BottomBM, FullBM take an integer argument, which is the margin, in pixels, between the border of the window and the drawn border.
-   , border = BottomB
+   , border = NoBorder
 
 
 
    -- // layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %battery%  %default:Master%  | %UnsafeStdinReader%}{                <fc=#909090>%cpu% / %coretemp%</fc> | <fc=#909090>%memory%</fc> | <fc=#909090>%dynnetwork%</fc> [ %uptime% | %date% ] "
+   , template = " %battery%  %default:Master%  | %UnsafeStdinReader%}{                <fc=#909090>%cpu% / %coretemp%</fc> | <fc=#909090>%memory%</fc> | <fc=#909090>%dynnetwork%</fc> [ <fc=#ABABAB>%uptime% | %date%</fc> ] "
 
 
 
@@ -41,8 +39,8 @@ Config {
 
    -- // layout template
    , commands = 
-	      -- uptime monitor
-	      [ Run Uptime	 [ "--template", "<fc=#ABABAB><hours>h <minutes>m <seconds>s</fc>" ] 10
+          -- uptime monitor
+          [ Run Uptime   [ "--template", "<hours>h <minutes>m <seconds>s" ] 10
 
         -- shows pp config in xmonad.hs
         , Run UnsafeStdinReader
@@ -95,22 +93,17 @@ Config {
                              , "-W", "0"
 
                              , "--"
-                                       -- discharging status
+                                       -- ac "off" status
                                        , "-o" , "<left>%"
-                                       -- AC "on" status
-                                       , "-O" , "<fc=#dAA520>Charging..</fc>"
-                                       -- charged status
+                                       -- ac "on" status
+                                       , "-O" , "Charging.. (<left>%)"
+                                       -- ac "idle" status
                                        , "-i" , "Charged!"    
-                             ] 50
+                             ] 10
 
         -- time and date indicator 
         --   (%F = y-m-d date, %a = day of week, %T = 24-hour format/%r = 12-hour format)
-        , Run Date           "<fc=#ABABAB>%F (%a) %r</fc>" "date" 10
-
-        -- keyboard layout indicator
-        -- , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
-        --                     , ("us"         , "<fc=#4682B4>KeyB: </fc", "<fc=#8B0000>US</fc>")
-        --                     ]
+        , Run Date           "%F (%a) %r" "date" 10
 
         -- volume (alias %default:Master%)
         -- , Run Com "/home/anapal/Scripts/volume.sh" [] "volume" 10
@@ -122,6 +115,11 @@ Config {
                                               , "-O", ""
                                               , "-o", "<fc=#a0a0a0>\xf655</fc>"
                                         ] 10
+
+        -- keyboard layout indicator
+        -- , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
+        --                     , ("us"         , "<fc=#4682B4>KeyB: </fc", "<fc=#8B0000>US</fc>")
+        --                     ]
 
         -- weather monitor (add %RJTT% beteen uptime and date)
         -- , Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
