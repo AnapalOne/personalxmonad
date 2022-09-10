@@ -175,13 +175,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 ---------------------------------------------------------
 
 myLayout = avoidStruts
-        (spacing 3 $ smartBorders ( Full ||| tiled ||| Mirror tiled ||| threecol ||| Mirror threecol ||| Grid ||| spiral (6/7)) ||| Circle )
+        (spacingWithEdge 6 $ smartBorders ( Full ||| tiled ||| Mirror tiled ||| threecol ||| Mirror threecol ||| Grid ||| spiral (6/7)) ||| Circle )
   where
      tiled = Tall nmaster delta ratio
      nmaster = 1
      delta = 3/100
      ratio = 1/2
-     threecol = ThreeCol cnmaster cdelta cratio
+     threecol = ThreeCol cnmaster cdelta cratio 
      cnmaster = 1
      cdelta = 3/100
      cratio = 1/2
