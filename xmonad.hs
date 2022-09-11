@@ -108,14 +108,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- // floating windows
     , ((modm .|. shiftMask, xK_Tab    ), withFocused toggleFloat)                      -- toggle between tiled and floating window
-    , ((modm,               xK_Up     ), withFocused (keysMoveWindow (0,-10)))         -- move floating window 
-    , ((modm,               xK_Down   ), withFocused (keysMoveWindow (0,10)))          -- 
-    , ((modm,               xK_Left   ), withFocused (keysMoveWindow (-10,0)))         --
-    , ((modm,               xK_Right  ), withFocused (keysMoveWindow (10,0)))          --
-    , ((modm .|. shiftMask, xK_Up     ), withFocused (keysResizeWindow (0,-10) (0,0))) -- resize floating window
-    , ((modm .|. shiftMask, xK_Down   ), withFocused (keysResizeWindow (0,10) (0,0)))  --
-    , ((modm .|. shiftMask, xK_Left   ), withFocused (keysResizeWindow (-10,0) (0,0))) --
-    , ((modm .|. shiftMask, xK_Right  ), withFocused (keysResizeWindow (10,0) (0,0)))  --
+    , ((modm,               xK_Up     ), withFocused (keysMoveWindow (0,-35)))         -- move floating window 
+    , ((modm,               xK_Down   ), withFocused (keysMoveWindow (0,35)))          -- 
+    , ((modm,               xK_Left   ), withFocused (keysMoveWindow (-35,0)))         --
+    , ((modm,               xK_Right  ), withFocused (keysMoveWindow (35,0)))          --
+    , ((modm .|. shiftMask, xK_Up     ), withFocused (keysResizeWindow (0,-30) (0,0))) -- resize floating window
+    , ((modm .|. shiftMask, xK_Down   ), withFocused (keysResizeWindow (0,30) (0,0)))  --
+    , ((modm .|. shiftMask, xK_Left   ), withFocused (keysResizeWindow (-30,0) (0,0))) --
+    , ((modm .|. shiftMask, xK_Right  ), withFocused (keysResizeWindow (30,0) (0,0)))  --
     , ((modm .|. controlMask, xK_Left ), withFocused $ snapMove L Nothing)             -- snap window relative to window or desktop
     , ((modm .|. controlMask, xK_Right), withFocused $ snapMove R Nothing)             --
     , ((modm .|. controlMask, xK_Up   ), withFocused $ snapMove U Nothing)             --
@@ -145,7 +145,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_s     ), spawn "flameshot gui")                                      -- equivelent to prntscr
     , ((modm,               xK_r     ), spawn "dmenu_run")                                          -- run program
     , ((modm .|. shiftMask, xK_v     ), spawn "alacritty -t alsamixer -e alsamixer")                -- sound system
-    , ((modm .|. shiftMask, xK_c     ), qalcPrompt qalcPromptConfig "qalc (Press escape to exit)" ) -- quick calculator
+    , ((modm .|. shiftMask, xK_c     ), qalcPrompt qalcPromptConfig "qalc (Press esc to exit)" )    -- quick calculator
     
     -- // scratchpad
     , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "ScrP_alacritty")
@@ -155,7 +155,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,                 xK_v     ), namedScratchpadAction myScratchpads "ScrP_vim")
     , ((modm,                 xK_m     ), namedScratchpadAction myScratchpads "ScrP_cmus")
     , ((modm .|. shiftMask,   xK_m     ), namedScratchpadAction myScratchpads "ScrP_spt")
-    , ((modm,                 xK_a     ), namedScratchpadAction myScratchpads "ScrP_trackma")
 
     -- // grid
     , ((modm,                 xK_Tab   ), goToSelected def)
@@ -200,15 +199,14 @@ myScratchpads =
          , NS "help" "alacritty -t \"list of programs\" -e bash -c \'less ~/.config/xmonad/help\'" (title =? "list of programs") floatScratchpad
          , NS "ScrP_cmus" "alacritty -t cmus -e cmus" (title =? "cmus") floatScratchpad
          , NS "ScrP_spt" "alacritty -t spotify-tui -e spt" (title =? "spotify-tui") floatScratchpad
-         , NS "ScrP_trackma" "alacritty -t trackma-curses -e trackma-curses" (title =? "trackma-curses") floatScratchpad
          ]
     where 
        floatScratchpad = customFloating $ W.RationalRect l t w h
                 where
-                    h = 0.9
                     w = 0.9
-                    l = 0.95 -h
-                    t = 0.95 -w
+                    h = 0.89
+                    l = 0.95 - h
+                    t = 0.98 - w
 
 
 
@@ -302,6 +300,8 @@ myStartupHook = do
         spawnOnce "~/Scripts/battery_notifs.sh &"
         spawnOnce "libinput-gestures &"
         spawnOnce "unclutter &"
+        spawnOnce "eww open music-widget --config /home/anapal/.config/eww/"
+       -- spawnOnce "eww open todo-list --config /home/anapal/.config/eww/"
         setDefaultCursor myCursor
 
 myLogHook xmproc = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ def
@@ -356,7 +356,7 @@ toggleFloat :: Window -> X ()
 toggleFloat w = windows
    ( \s -> if M.member w (W.floating s)
            then W.sink w s
-           else (W.float w (W.RationalRect (0.01) (0.04) (0.55) (0.55)) s) )
+           else (W.float w (W.RationalRect (0.01) (0.06) (0.50) (0.50)) s) )
 
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
