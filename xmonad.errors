@@ -1,8 +1,0 @@
-$ ghc --make xmonad.hs -i -ilib -fforce-recomp -main-is main -dynamic -v0 -outputdir /home/anapal/.xmonad/build-x86_64-linux -o /home/anapal/.xmonad/xmonad-x86_64-linux
-
-xmonad.hs:308:8: warning: [-Wtabs]
-    Tab character found here, and in one further location.
-    Please use spaces instead.
-    |
-308 |                                    { ppOutput = hPutStrLn xmproc 
-    |        ^

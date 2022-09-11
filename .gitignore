@@ -1,5 +1,7 @@
-./build-x86_64-linux
+build-x86_64-linux/
 prompt-history
 xmonad-x86_64-linux
 xmonad.errors
 xmonad.hi
+xmonad.hs.backup
+xmonad.hs.original
