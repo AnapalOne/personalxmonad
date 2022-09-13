@@ -316,7 +316,7 @@ myLogHook xmproc = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ d
                                    , ppSep = "<fc=#666666> | </fc>"
                                    , ppWsSep = "<fc=#666666> . </fc>"
                                    , ppExtras = [windowCount]
-                                   , ppLayout = xmobarColor "#ffffff" ""
+                                   -- , ppLayout = xmobarFilter "Spacing"
                                    , ppOrder = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                                    }
 
