@@ -132,12 +132,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask,   xK_Escape), confirmPrompt logoutPrompt "sleep?" $ spawn "systemctl suspend")                         -- sleep mode
     , ((modm .|. altMask  ,   xK_Escape), confirmPrompt logoutPrompt "reboot?" $ spawn "systemctl reboot")                         -- reboot computer
     , ((modm .|. controlMask, xK_Escape), confirmPrompt logoutPrompt "shutdown?" $ spawn "systemctl poweroff")                     -- shutdown computer
-    , ((0,              xF86XK_PowerOff), confirmPrompt logoutPrompt "shutdown?" $ spawn "systemctl poweroff")                     --
+    , ((0,              xF86XK_PowerOff), spawn "systemctl suspend")                     --
     , ((0,                 xF86XK_Sleep), spawn "systemctl suspend")                                                               -- sleep mode
     , ((0,       xF86XK_MonBrightnessUp), spawn "lux -a 5% -M 936")
     , ((0,     xF86XK_MonBrightnessDown), spawn "lux -s 5% -m 50")
-    , ((0,      xF86XK_AudioRaiseVolume), spawn "pamixer -i 5")
-    , ((0,      xF86XK_AudioLowerVolume), spawn "pamixer -d 5")
+    , ((0,      xF86XK_AudioRaiseVolume), spawn "pamixer -i 10")
+    , ((0,      xF86XK_AudioLowerVolume), spawn "pamixer -d 10")
     , ((0,             xF86XK_AudioMute), spawn "pamixer -t")
 
     -- // programs
