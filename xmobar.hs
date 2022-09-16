@@ -4,14 +4,14 @@ Config {
      font =         "xft:Symbols Nerd Font:size=10,  Bitstream Vera Sans Mono:size=8:bold:antialias=true:hinting=true"
    , bgColor =      "black"
    , fgColor =      "white"
-   , borderColor =  "#646464"
+   , borderColor =  "#ffffff"
 
    -- options: Top, TopP, TopW, TopSize, Bottom, BottomP, BottomW, BottomSize or Static
    --          examples:
    --              Static { xpos = 14 , ypos = 10, width = 1330, height = 20 }
    --              BottomW C 75
    --              BottomP 120 0
-   , position = Top
+   , position = Static { xpos = 12 , ypos = 12, width = 1341, height = 22 }
 
    -- options: TopB, TopBM, BottomB, BottomBM, FullB, FullBM or NoBorder 
    --     TopB, BottomB, FullB take no arguments, and request drawing a border at the top, bottom or around xmobar's window, respectively.
@@ -23,7 +23,7 @@ Config {
    -- // layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %battery%  %default:Master%  | %UnsafeStdinReader%}{                <fc=#909090>%cpu% / %coretemp%</fc> | <fc=#909090>%memory%</fc> | <fc=#909090>%dynnetwork%</fc> [ <fc=#ABABAB>%uptime% | %date%</fc> ] "
+   , template = "  %battery%  %default:Master%  | %UnsafeStdinReader%}{                <fc=#909090>%cpu% / %coretemp%</fc> | <fc=#909090>%memory%</fc> | <fc=#909090>%dynnetwork%</fc> [ <fc=#ABABAB>%uptime% | %date%</fc> ]  "
 
 
 
@@ -39,11 +39,15 @@ Config {
 
    -- // layout template
    , commands = 
-          -- uptime monitor
-          [ Run Uptime   [ "--template", "<hours>h <minutes>m <seconds>s" ] 10
+	      -- uptime monitor
+	      [ Run Uptime	 [ "--template", "<hours>h <minutes>m <seconds>s" ] 10
 
         -- shows pp config in xmonad.hs
         , Run UnsafeStdinReader
+
+        -- disk size monitor
+        , Run DiskU [("/", "<fc=#f7a60e>\xf7c9</fc> <fc=#9f9f9f><used>B / <size>B</fc>")] 
+                    [] 100
 
         -- network activity monitor (dynamic interface resolution)
         , Run DynNetwork     [ "--template" , "<fc=#0192ff>\xf093</fc> <tx>kB/s / <fc=#0192ff>\xf019</fc> <rx>kB/s"
@@ -65,12 +69,14 @@ Config {
 
         -- cpu core temperature monitor
         , Run CoreTemp       [ "--template" , "<core0>°C"
-                             , "--Low"      , "60"        -- units: °C
-                             , "--High"     , "80"        -- units: °C
-                             , "--low"      , "#1bc800"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+        --                      -- , "--Low"      , "60"        -- units: °C
+        --                      -- , "--High"     , "80"        -- units: °C
+        --                      -- , "--low"      , "#1bc800"
+        --                      -- , "--normal"   , "darkorange"
+        --                      -- , "--high"     , "darkred"
                              ] 50
+
+        -- , Run Com "sh" ["-c", "sensors | grep -m 1 temp1 | sed 's/temp1:        +//' | sed 's/[ \t]*$//'" ] "coretemp" 50
                           
         -- memory usage monitor
         , Run Memory         [ "--template" ,"<fc=#f44336>\xf2db</fc> <usedratio>%"
@@ -96,7 +102,7 @@ Config {
                                        -- ac "off" status
                                        , "-o" , "<left>%"
                                        -- ac "on" status
-                                       , "-O" , "Charging.. (<left>%)"
+                                       , "-O" , "<left>% \xe315"
                                        -- ac "idle" status
                                        , "-i" , "Charged!"    
                              ] 10
