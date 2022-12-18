@@ -1,5 +1,7 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+# This repository has been abandoned as I have created my [dotfiles](https://github.com/AnapalOne/dotfiles). Therefore, this repository is no longer being used.
+
 ## A custom [xmonad](https://xmonad.org) configuration with clickable workspaces and easy naviagation, packed with tons of [pre-installed packages](https://github.com/AnapalOne/xmonad-packed#list-of-packages) for Arch Linux.
 
 ![xmonad](https://github.com/AnapalOne/xmonad-packed/blob/main/50s5zbz9gqu81.png "xmonad")
